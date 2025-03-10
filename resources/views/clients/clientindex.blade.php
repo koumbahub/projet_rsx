@@ -40,7 +40,9 @@
                         <td>{{$client->tel}}</td>
                         
                         <td>
-                            <a href='/clients/{{$client->id}}/edit'>
+                            
+                            <a href="{{ route('clients.clientedit', $client->id) }}">
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -61,7 +63,9 @@
                             </a>
 
 
-                            <a href='/clients/{{$client->id}}/show'>
+                            
+                            <a href="{{ route('clients.clientshow', $client->id) }}">
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                     <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
@@ -81,7 +85,10 @@
                                     <div class="modal-body">
                                         Voulez vous vraiment supprimer cet utilisateur {{$client->name}}
                                     </div>
-                                    <form action="/clients/{{$client->id}}/destroy" method='post'>
+                                    
+                                    <form action="{{ route('clients.clientdestroy', $client->id) }}" method="post">
+
+
                                         @csrf
                                         @method('delete')
                                         <div class="modal-footer">
@@ -103,7 +110,8 @@
                                     <div class="modal-body">
                                         Voulez vous vraiment reinitialliser le mot de passe de l'utilisateur {{$client->name}}
                                     </div>
-                                    <form action="/clients/{{$client->id}}/reset" method='post'>
+                                    <form action="{{ route('clients.reset', $client->id) }}" method="post">
+
                                         @csrf
                                         @method('put')
                                         <div class="modal-footer">

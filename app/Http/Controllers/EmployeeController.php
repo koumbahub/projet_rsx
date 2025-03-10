@@ -11,13 +11,13 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::all(); // Récupérer tous les employés
-        return view('employees.index', compact('employees'));
+        return view('employees.employeeindex', compact('employees'));
     }
 
     // Afficher le formulaire de création d'un nouvel employé
     public function create()
     {
-        return view('employees.create');
+        return view('employees.employeecreate');
     }
 
     // Créer un nouvel employé
@@ -37,21 +37,21 @@ class EmployeeController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->route('employees.index')->with('success', 'Employé ajouté avec succès.');
+        return redirect()->route('employees.employeeindex')->with('success', 'Employé ajouté avec succès.');
     }
 
     // Afficher un employé spécifique
     public function show($id)
     {
         $employee = Employee::findOrFail($id); // Trouver l'employé par son ID
-        return view('employees.show', compact('employee'));
+        return view('employees.employeeshow', compact('employee'));
     }
 
     // Afficher le formulaire d'édition de l'employé
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
-        return view('employees.edit', compact('employee'));
+        return view('employees.employeeedit', compact('employee'));
     }
 
     // Mettre à jour un employé existant
@@ -70,7 +70,7 @@ class EmployeeController extends Controller
             'email' => $request->email,
         ]);
 
-        return redirect()->route('employees.index')->with('success', 'Employé mis à jour avec succès.');
+        return redirect()->route('employees.employeeindex')->with('success', 'Employé mis à jour avec succès.');
     }
 
     // Supprimer un employé
@@ -79,6 +79,14 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
         $employee->delete();
 
-        return redirect()->route('employees.index')->with('success', 'Employé supprimé avec succès.');
+        return redirect()->route('employees.employeeindex')->with('success', 'Employé supprimé avec succès.');
+    }
+
+    public function reset($id)
+    {
+        $employee = Employee::findOrFail($id);
+        // Logique de réinitialisation du mot de passe
+        $employee->update(['password' => bcrypt('nouveau_mot_de_passe')]);
+        return redirect()->route('employees.employeeindex')->with('success', 'Mot de passe réinitialisé');
     }
 }

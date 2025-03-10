@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,8 +35,7 @@ Route::get('/inscription', function () {
 
 
 
-
-Route::middleware('auth')->group(function(){
+//Route::middleware('auth')->group(function(){
    
     // Page d'accueil
     Route::get('/', function () {
@@ -41,43 +44,48 @@ Route::middleware('auth')->group(function(){
 
     // Routes pour les employés
 
-    Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index'); // Afficher tous les employés
-    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create'); // Formulaire d'ajout
-    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store'); // Enregistrer un employé
-    Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show'); // Afficher un employé
-    Route::get('/employees/{id}/edit', [EmployeeController::class, 'edit'])->name('employees.edit'); // Formulaire de modification
-    Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('employees.update'); // Mettre à jour un employé
-    Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('employees.destroy'); // Supprimer un employé
+    Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.employeeindex'); // Afficher tous les employés
+    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.employeecreate'); // Formulaire d'ajout
+    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.employeestore'); // Enregistrer un employé
+    Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.employeeshow'); // Afficher un employé
+    Route::get('/employees/{id}/edit', [EmployeeController::class, 'edit'])->name('employees.employeeedit'); // Formulaire de modification
+    Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('employees.employeeupdate'); // Mettre à jour un employé
+    Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->name('employees.employeedestroy'); // Supprimer un employé
 
 
 
     // Routes pour les clients
 
-    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index'); // Afficher tous les clients
-    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create'); // Formulaire d'ajout
-    //Route::post('/clients', [ClientController::class, 'store'])->name('clients.store'); // Enregistrer un client
-    
-    Route::post('clients/store', [ClientController::class, 'store'])->name('clients.store');
-
-    Route::get('/clients/{id}', [ClientController::class, 'show'])->name('clients.show'); // Afficher un client
-    Route::get('/clients/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit'); // Formulaire de modification
-    Route::put('/clients/{id}', [ClientController::class, 'update'])->name('clients.update'); // Mettre à jour un client
-    Route::delete('/clients/{id}', [ClientController::class, 'destroy'])->name('clients.destroy'); // Supprimer un client
+    Route::get('/clients/index', [ClientController::class, 'index'])->name('clients.clientindex'); // Afficher tous les clients
+    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.clientcreate'); // Formulaire d'ajout
+    Route::post('/clients', [ClientController::class, 'store'])->name('clients.clientstore'); // Enregistrer un client
+    //Route::post('clients/store', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients/{id}', [ClientController::class, 'show'])->name('clients.clientshow'); // Afficher un client
+    Route::get('/clients/{id}/edit', [ClientController::class, 'edit'])->name('clients.clientedit'); // Formulaire de modification
+    Route::put('/clients/{id}', [ClientController::class, 'update'])->name('clients.clientupdate'); // Mettre à jour un client
+    Route::delete('/clients/{id}', [ClientController::class, 'destroy'])->name('clients.clientdestroy'); // Supprimer un client
+    Route::put('/clients/{id}/reset', [ClientController::class, 'reset'])->name('clients.reset'); // Réinitialisation du mot de passe d'un client
 
 
     // Routes pour les documents
 
+    Route::get('/documents', [DocumentController::class, 'index'])->name('documents.documentindex'); // Afficher tous les documents
+    Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.documentcreate'); // Formulaire d'ajout
+    Route::post('/documents', [DocumentController::class, 'store'])->name('documents.documentstore'); // Enregistrer un document
+    Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.documentshow'); // Afficher un document
+    Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.documentedit'); // Formulaire de modification
+    Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.documentupdate'); // Mettre à jour un document
+    Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.documentdestroy'); // Supprimer un document
 
-    Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index'); // Afficher tous les documents
-    Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create'); // Formulaire d'ajout
-    Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store'); // Enregistrer un document
-    Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show'); // Afficher un document
-    Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit'); // Formulaire de modification
-    Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.update'); // Mettre à jour un document
-    Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy'); // Supprimer un document
+
+    // Route pour la page d'accueil
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-});
+    // Route pour la déconnexion
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+//});
 
 
 

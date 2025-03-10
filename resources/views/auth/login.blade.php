@@ -32,7 +32,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-7 px-0 d-none d-sm-block">
-                    <img src=""
+                    <img src="https://img.freepik.com/vetores-premium/logotipo-da-smart-technology_18099-2342.jpg?w=2000"
                     alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
                 </div> 
 

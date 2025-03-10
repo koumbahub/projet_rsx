@@ -1,76 +1,59 @@
-@extends('partials/master')
+@extends('partials.master')
 @section('contenu')
 <div class="container-fluid px-4">
-    <h2 class="mt-4">Accueil</h2>
+    <h2 class="mt-4">Home</h2>
     <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">{{Auth::user()->name}}</li>
+    <li class="breadcrumb-item active">
+         @if(Auth::check())
+            <a class="dropdown-item" href="#">{{ Auth::user()->name }} ({{ Auth::user()->role }})</a>
+        @else
+            <a class="dropdown-item" href="{{ route('login') }}">Se connecter</a>
+        @endif
+    </li>
     </ol>
-    @if(Auth::user()->client)
     <div class="row">
         <div class="col">
-            <span class="display-6">Bienvenue sur la Plateforme Web avec Intégration des Services Réseau et Accès Distant de Smarttech !</span>
-            <p>Cette application permet la gestion des employés et le partage de fichiers.</p>
-            <p>L'objectif de cette plateforme est de .</p>
-
+            <span class="display-6">Bienvenue sur la Plateforme Web de Smarttech !</span>
+            <p>Cette application permet la gestion des employés, des clients, et le partage de fichiers.</p>
         </div>
         <div class="col">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <img src="{{asset('logo-dgb.png')}}" >
+            <img src="{{asset('logo-dgb.png')}}" alt="logo" width="200">
         </div>
     </div>
-    @else
-    <div class="row">
 
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Nombre de founisseurs partenaires
-                </div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="/providers/index">{{$nombredefournisseurs}}</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row mt-5">
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Nombre de demandes d'agrement
-                </div>
+                <div class="card-body">Nombre d'employés</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">{{$nombrededemandes}}</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i>
-                    </div>
+                    <span>{{ $nombreEmployees }}</span>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
-                <div class="card-body">Nombre de demandes d'agrement accordées
-                </div>
+                <div class="card-body">Nombre de clients</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">{{$nombreagrementsaccordes}}</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i>
-                    </div>
+                    <span>{{ $nombreClients }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">Nombre de documents partagés</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span>{{ $nombreDocuments }}</span>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Nombre de demandes d'agrement rejetées
-                </div>
+                <div class="card-body">Alertes/Erreurs</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">{{$nombreagrementsrejetes}}</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i>
-                    </div>
+                    <span>{{ $nombreAlertes }}</span>
                 </div>
             </div>
         </div>
     </div>
-    
-    @endif
 </div>
 @endsection
